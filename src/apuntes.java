@@ -238,7 +238,7 @@ class MainActivity : AppCompatActivity(){
 
                     ------> Pasando Datos de ActivityMain a SecondActivity <-----
 
-La manera mas simple de enviar datos de una Activity a otra es enviar un intent desde MainActivity:
+- La manera mas simple de enviar datos de una Activity a otra es enviar un intent desde MainActivity:
 
     val intent = Intent(context, SecondActivity:: class.java)
 
@@ -246,8 +246,49 @@ La manera mas simple de enviar datos de una Activity a otra es enviar un intent 
 
     startActivity(intent)
 
-Recibiendo del siguiente modo:
+- Recibiendo del siguiente modo:
 
     val saludo = intent.getStringExtra("Clave")
 
+
+
+- Por convenio, es mejor declarar la clave como un companion object en SecondActivity.
+
+    companion object{
+
+        const val CLAVE_1 = "ClaveSecondActivityString"
+
+    }
+
+
+- Alternativamente, se puede optar por crear una función estatica en la SecondActivity agrupando todo lo necesario para ejecutar
+  satisfactoriamente un intent.
+
+    fun getIntent(context: Context, saludo : String) Intent{
+
+        val intent = Intent(context, SecondActivity :: class.java)
+
+        intent.putExtra(CLAVE_1,saludo)
+
+        return intent
+
+    }
+
+- Alternativamente siendo llamado desde MainActivity
+
+    startActivity(SecondActivity.getIntent(this, "Hola, ¿que tal?"))
+
+
+
+
+
+
+
+- Pasando clases de ActivityMain a SecondActivity I
+
+Dentro de los intent solo podemos pasar cierto tipo de datos (Int, String, ect.).
+
+Uno de esos tipos se denomina parcelable. Nuestro objeto
+
  */
+
