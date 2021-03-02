@@ -300,7 +300,7 @@ El proceso requiere incluir en granle de nuestra app lo siguiente:
 
 
 
-        Pasando clases de ActivityMain a SecondActivity II
+es de ActivityMain a SecondActivity II
 
 Las clases que queremos enviear en un intent, deberá incluir la siguiente etiqueta e impresión:
 
@@ -524,6 +524,104 @@ Si se poseen estos conocimientos lo siguiente es buscar una biblioteca para el d
 El lenguaje es lo de menos en todos existen buenas bibliotecas 2D para empezar a desarrollar videojuegos. Lo importante es aprender las técnicas de la programación en tiempo real y eso es
 aplicable a cualquier lenguaje.
 
+
+
+
+
+
+                              --- ¿Qué es Unity?. Instalación y configuración de Unity. ---
+
+  ¿Qué es Unity?
+
+Es una plataforma preparada para el desarrollo de videojuegos en 3D y 2D. Lo más destacado es que gran parte del desarrollo se hace sin programar,
+solo poniendo muñecos, fondos y objetos en la pantalla, al estilo arrastrar y soltar.
+
+Descarga e instalación de Unity 3D.
+
+https://unity3d.com/es/get-unity/download/archive
+
+Descargaremos la versión Unity 2018.3.4 para el sistema operativo correspondiente.
+
+El instalador nos preguntará si queremos instalar:
+
+    Unity <- Debemos instalarlo por motivos obvios
+    Web Player <- Si queremos ver juegos en 3D en el navegador. Es opcional.
+    Standard Assets <- Recursos estándar para desarrollar juegos. Opcional, pero recomendable por tener recursos con que empezar a programar
+    Example project <- Un proyecto de ejemplo con los recursos estándar
+
+Una vez finalizada la instalación, nos preguntará por usuario y clave. Es necesario registrarse
+
+Al arrancar la sesión podremos navegar entre tutoriales a través de la pestaña "Learn" y la pestaña "projects".
+
+La primera nos guiará a través de una serie de tutoriales y la pestaña "Projects" nos permitirá crear nuevos proyectos.
+
+
+
+Creación de proyectos en Unity
+
+Creación de un nuevo proyecto.
+
+1.- Projects -> New Project
+2.- En la siguiente ventana, crearemos un proyecto 2D denominado por ejemplo UnityProject1.
+En este punto se descargarán nuevos paquetes si es necesario.
+
+La pantalla se divide en diversas zonas de trabajo (las llamaremos ventanas) organizadas de una determinada forma (Layout). Básicamente la pantalla está formada por estas
+
+Ventanas:
+    Scene: Es donde se desarrolla el juego, la escena, ahí añadiremos los sprites y recursos para que interactúen entre sí. Los veremos en formato gráfico
+    Hierarchy: Ahí nos saldrán todos los sprites, objetos y recursos que añadamos a la escena pero en forma jerárquica. Los veremos en formato texto.
+    Inspector: cuando seleccionamos un objeto desde Scene o desde Hierarchy aquí nos saldrá su detalle con sus características: posicion, tamaño, etc.
+    Project: Aquí veremos los recursos (Assets) disponibles del juego.
+    Botones de simulación: Son los que nos permiten echar a andar nuestro mundo o pausarlo. Si le damos al play iniciaremos el juego
+
+En la ventana Project tendremos los recursos disponibles para añadir cuantos queramos a la escena, por ejemplo, podemos tener un recurso Coche, si lo añadimos a la escena
+ 10 veces tendremos 10 coches, cada uno con sus características propias (posicion, tamaño, etc) y todos compartiendo características comunes (textura por ejemplo).
+Para cambiar las distintas zonas de ventanas de otra forma (de otro Layout) podemos hacerlo arrastrándolas o escogiendo alguna de las distintas Layout predefinidas que
+ pueden escogerse, cargarse y grabarse pinchando en el botón que pone Layout.
+En la parte de Assets es donde están los recursos que vamos a usar en nuestro juego, ahora esta zona estará vacía pero podemos rellenarla con imágenes si añadimos los
+sprites.
+
+3.- Añadir imágenes al proyecto.
+
+Antes de pasar los recursos a nuestro proyecto Unity hay que organizar bien las carpetas. Luego se pasa fácilmente pinchando con el botón derecho en Assets y seleccionando
+ Show in Explorer, entramos en la carpeta Assets y copiamos ahí los recursos. Si volvemos a Unity veremos que nuestra carpeta de Assets ya no está vacía, tendrá
+ todo lo que hemos copiado con la misma estructura.
+
+En nuestro caso tenemos una escena de ejemplo: SampleScene.
+
+También tenemos la posibilidad de usar la tienda de recursos (Window->Asset Store o pulsando Ctrl+F9). Hay un buscador si ponemos 2D encontraremos recursos 2D, Le damos
+al botón de download (o import) y tras un par de segundos nos saldrá una ventana donde nos dice lo que nos va a bajar.
+
+Modo de Edición en Unity
+
+En el modo de edición los cambios que se hagan en nuestra escena y proyecto serán permanentes. Este modo es el normal de trabajo. Para saber si estamos en este modo
+simplemente hay que mirar que el botón play no esté pulsado (está de color negro)
+
+Modo de ejecución en Unity
+
+Se activa pulsando en el botón play (se volverá azul). En el modo de ejecución los cambios son temporales, este modo se usa para realizar cambios "al vuelo" y ver
+cómo va quedando la escena. Pero al volver al modo edición (pulsando play otra vez) se perderán los cambios, por ello hay que volverlos a añadir. Este modo se usa para
+hacer pruebas e ir ajustando el juego
+
+Descarga de Sprites
+
+Tras escoger la temática necesitamos los gráficos de los personajes (sprites) y los de los fondos.
+
+Podemos hacerlos nosotros mismos o comenzar descargándolos de la web. Entre los muchos recursos existentes podemos encontrar:
+
+- the spriter resource
+
+- vxresource
+
+- opengameart
+
+- GameDev
+
+En la web de Unity hay también una sección para comprar y descargar recursos de videojuegos.
+
+Para sonidos podemos utilizar Freesound.
+
+Uso de Sprites
 
 
  */
