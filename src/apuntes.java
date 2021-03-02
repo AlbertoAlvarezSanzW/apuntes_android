@@ -193,7 +193,7 @@ Solo necesitamos crear un menu, añadir el BottomNavigationView
 
                                                 Tema 7
 
-------> Nueva Activity II <------
+                                ------> Nueva Activity II <------
 
 class SecondActivity : AppCompatActivity(){
 
@@ -204,7 +204,7 @@ class SecondActivity : AppCompatActivity(){
         setContentView(R.layout.activity_second)
     }
 }
-------> Se actializa el manifest <------
+                                ------> Se actializa el manifest <------
 
 <application
 
@@ -216,7 +216,7 @@ class SecondActivity : AppCompatActivity(){
 
 
 
-------> Se modifica MainActivity <-----
+                                ------> Se modifica MainActivity <-----
 
 class MainActivity : AppCompatActivity(){
 
@@ -238,7 +238,7 @@ class MainActivity : AppCompatActivity(){
 
                     ------> Pasando Datos de ActivityMain a SecondActivity <-----
 
-- La manera mas simple de enviar datos de una Activity a otra es enviar un intent desde MainActivity:
+        - La manera mas simple de enviar datos de una Activity a otra es enviar un intent desde MainActivity:
 
     val intent = Intent(context, SecondActivity:: class.java)
 
@@ -246,13 +246,13 @@ class MainActivity : AppCompatActivity(){
 
     startActivity(intent)
 
-- Recibiendo del siguiente modo:
+        - Recibiendo del siguiente modo:
 
     val saludo = intent.getStringExtra("Clave")
 
 
 
-- Por convenio, es mejor declarar la clave como un companion object en SecondActivity.
+        - Por convenio, es mejor declarar la clave como un companion object en SecondActivity.
 
     companion object{
 
@@ -261,8 +261,8 @@ class MainActivity : AppCompatActivity(){
     }
 
 
-- Alternativamente, se puede optar por crear una función estatica en la SecondActivity agrupando todo lo necesario para ejecutar
-  satisfactoriamente un intent.
+        - Alternativamente, se puede optar por crear una función estatica en la SecondActivity agrupando
+         todo lo necesario para ejecutar satisfactoriamente un intent.
 
     fun getIntent(context: Context, saludo : String) Intent{
 
@@ -274,7 +274,7 @@ class MainActivity : AppCompatActivity(){
 
     }
 
-- Alternativamente siendo llamado desde MainActivity
+        - Alternativamente siendo llamado desde MainActivity
 
     startActivity(SecondActivity.getIntent(this, "Hola, ¿que tal?"))
 
@@ -284,11 +284,247 @@ class MainActivity : AppCompatActivity(){
 
 
 
-- Pasando clases de ActivityMain a SecondActivity I
+        - Pasando clases de ActivityMain a SecondActivity I
 
 Dentro de los intent solo podemos pasar cierto tipo de datos (Int, String, ect.).
+Uno de esos tipos se denomina parcelable. Nuestro objeto será convertir nuestras
+clases en objetivos Parcelables.
 
-Uno de esos tipos se denomina parcelable. Nuestro objeto
+El proceso requiere incluir en granle de nuestra app lo siguiente:
+
+    plugins{
+
+        id 'kotlin-parcelize'
+
+    }
+
+
+
+        Pasando clases de ActivityMain a SecondActivity II
+
+Las clases que queremos enviear en un intent, deberá incluir la siguiente etiqueta e impresión:
+
+
+                                     --> Librerías <--
+
+        - Durante los siguiente ejemplo se usarán las siguientes librerias que habrá que importar en el gradle:
+
+    implementation 'com.squareup.okhttp3:okhttp:4.8.0' Para gestionar las conexiones HTTPS.
+    implementation 'com.google.code.gson:gson:2.8.6' Para gestionar los JSON que se reciben de la API.
+    implementation 'org.jetbrains.kotlinx-serialization-runtime:0.9.1' Para transformar los datos recibidos eficientemente.
+    implementation 'org.jetbrains.kotlinx-corutines-android:1.3.9' Para gestionar donde se ejecutarán los distintos elementos que componen la App.
+
+  Permisos
+
+  Será necesario añadir los siguientes permisos a tu AndroidManifest:
+
+  <uses-permission andriod:name="android.permission.INTERNET" />
+  <uses-permission andriod:name="android.permission.ACCESS_NETWORK_STATE" />
+
+
+        val client = OkHttpClient()
+        val url = "nuestra api que nos vamos a conectar"
+        val request = Request.Builder().url(url).build()
+        val call = client.newCall(request)
+        call.enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {...}
+            override fun onResponse(call: Call, response: Response) {...}
+
+
+
+                                - Transformar en respuesta:
+
+  val JsonObject = JSONObject(bodyInString)
+  val results = JsonObject.optJSONArray("results")
+  results?.let {
+        val gson = Gson()
+        val itemType = object : TypeToken<List<Film>>() {}.type
+        val list = gson.fromJson<List<Film>>(results.toString(), itemType)
+
+  }
+
+                                    Motores de videojuegos:
+
+    El “motor para videojuegos” es el nombre con el que se conoce a los programas gratuitos o de pago que las empresas o los creadores utilizan para crear videojuegos.
+
+    Estos programas se basan en bibliotecas con funciones, clases y otros datos definidos por lenguajes de programación informática. Con estos datos ya creados por otra persona,
+    un usuario puede utilizar el motor para videojuegos “x” para crear un nuevo videojuego. La principal ventaja que ofrecen los motores para videojuegos es que ahorran codificación
+     desde un primer momento.
+
+    En resumen, los motores para videojuegos permiten crear nuevos videojuegos con menos codificación, menos complicaciones y en mucho menos tiempo.
+
+    A continuación te enumeramos algunos de los mejores motores para videojuegos y en qué videojuegos se utilizan:
+
+    1. Unreal Engine
+
+    Fue creado por Epic Games en 1998. En 2012 se presentó Unreal Engine 4, una nueva versión del motor. Este motor se utiliza para crear videojuegos de FPS, de estrategias y de carreras.
+    Entre las empresas que lo utilizan se encuentran Electronic Arts y Ubisoft. Utiliza el lenguaje de programación C++. Epic Games permite que un gran número de personas pueda utilizar
+    este motor a cambio de una tarifa fija.
+
+    Entre los videojuegos programados que utilizan este motor para videojuegos se incluyen los siguientes:
+
+        Batman: Arkham Asylum
+        BioShock
+        Gears of War
+        Medal of Honor: Airborne
+        Mortal Kombat vs. DC Universe
+
+    2.- CryENGINE
+
+    Este es el motor para videojuegos que utiliza Crytek, una empresa fundada por los hermanos Cevat Yerli, Avni Yerli y Faruk Yerli. CryENGINE ofrece algunos de los gráficos más potentes
+    de todos los motores para videojuegos actualmente disponibles en el mercado.
+
+    Entre los videojuegos programados que utilizan este motor para videojuegos se incluyen los siguientes:
+
+        Far Cry
+        Crysis
+        Crysis 2
+
+    3. Frostbite Engine
+
+    Este motor para videojuegos creado por Digital Illusions CE se utiliza para crear videojuegos de acción en primera persona. Se presentó principalmente para la serie de videojuegos Battlefield.
+    Ha jugado un papel fundamental en prácticamente todos los videojuegos de EA. La nueva versión del motor Frostbite Engine es Frostbite 3.
+
+    Entre los videojuegos programados que utilizan este motor para videojuegos se incluyen los siguientes:
+
+        The Battlefield Series
+        Star Wars: Battlefront
+        Need for Speed: The Run
+        Need for Speed: Rivals
+        Medal of Honor
+
+    4. Anvil Engine
+
+    El Anvil Engine fue creado por Ubisoft para el propio uso de la empresa. Aunque su nombre original era Scimitar, su nombre actual es Anvil Next. Este motor para videojuegos fue el primero
+    que se utilizó para programar Assassin’s Creed. Es muy popular por los altos niveles de inteligencia artificial e interacción con el entorno que ofrece en sus videojuegos.
+
+    Entre los videojuegos programados que utilizan este motor para videojuegos se incluyen los siguientes:
+
+        The Assassin’s Creed Series
+        Prince of Persia
+        Tom Clancy’s Rainbow 6: Patriots
+
+    5. Unity 3D
+
+    Unity 3D es un motor para videojuegos de uso gratuito. Se trata de una de las innovaciones más importantes creadas por la comunidad científica y de videojuegos y permite jugar a complejos
+    videojuegos en 3D sin necesidad de instalarlos en el ordenador. Los videojuegos creados con el motor Unity 3D se pueden jugar en un navegador con el reproductor Unity Web Player, eliminando
+    la necesidad de instalar el videojuego.
+
+    Entre los videojuegos programados que utilizan este motor para videojuegos se incluyen los siguientes:
+
+        Battlestar Galactica Online
+        Gone Home
+        Hearthstone
+        Una amplia gama de videojuegos para dispositivos móviles
+
+    6. Source
+
+    Source es un motor para videojuegos en 3D desarrollado por la empresa Valve Corporation. Se utilizó por primera vez en 2004 con el lanzamiento de Counter-Strike: Source y Half-Life 2 poco
+    después.
+
+    Entre los videojuegos programados que utilizan este motor para videojuegos se incluyen los siguientes:
+
+        Counter Strike Source
+        The Portal Series
+        Left 4 Dead – Left 4 Dead 2
+        Half Life 2
+
+    7. Quake Engine
+
+
+
+    La empresa id Software creó este motor Quake para el videojuego Quake. Desarrollado en 1995, probablemente allanó el camino para todos los motores actualmente disponibles en el mercado.
+    El concepto de videojuego en 3D que emergió entre 1995 y 2000 nació realmente con el Quake Engine.
+
+    Entre los videojuegos programados que utilizan este motor para videojuegos se incluyen los siguientes:
+
+        Quake
+        Quake Arena
+        Half Life
+
+    8. M.U.G.E.N
+
+    M.U.G.E.N es un motor para videojuegos de lucha en 2D diseñado por la empresa Elecbyte que se utiliza desde 1999.
+
+    Con este motor, cualquier persona tiene la posibilidad de crear personajes, escenas y otros objetos del videojuego utilizando una colección de archivos de texto con formato, gráficos y
+    sonidos. El motor proporciona funciones como las de muchos videojuegos de lucha en 2D, como “Street Fighter” y “King of Fighters”.
+
+    9. RAGE
+
+    RAGE es un motor para videojuegos creado por la empresa de videojuegos Rockstar con el que pretende contribuir al éxito de Rockstar North.
+
+    Rockstar Games desarrolló este motor para videojuegos para ordenador, así como para las consolas PlayStation 3, Wii y Xbox 360, con el objetivo de facilitar la producción de videojuegos.
+
+    Entre los videojuegos programados que utilizan este motor para videojuegos se incluyen los siguientes:
+
+        Midnight Club: Los Angeles
+        Grand Theft Auto IV
+        Red Dead Redemption
+
+    10. HeroEngine
+
+    HeroEngine es un motor para videojuegos en 3D y una plataforma de servidor especialmente desarrollada por la compañía Simutronics Corporation para la creación de videojuegos MMO. El motor
+    se desarrolló para el videojuego de la empresa Hero’s Journey y ha sido galardonado con varios premios. A partir de aquí, muchas empresas adquirieron licencias de este motor para utilizarlas
+    en sus propios videojuegos.
+
+    Entre los videojuegos programados que utilizan este motor para videojuegos se incluyen los siguientes:
+
+        Hero’s Journey
+        Star Wars: The Old Republic
+
+
+    Empezando con videojuegos
+Areas para programar videojuegos.
+
+En el desarrollo de videojuegos existen varia áreas, estas son las cinco principales: Diseño, Programación, Gráficos, Audio, Distribución y Marketing. Vamos a pasar a analizarlas brevemente.
+
+    Diseño. La parte más importante de un videojuego. Historia, Guión, jugabilidad, reglas y demás conceptos que hacen a un juego ser lo que es.
+    Programación. Una vez elaborado un diseño es la parte donde se juntan gráficos, audios y reglas para dar vida a un mundo interactivo. Existen varias disciplinas a su vez dentro de ella como
+    programación gráfica, gameplay o inteligencia artificial.
+    Gráficos. Interfaces, modelos 3D, animaciones y todo lo que “se ve” de el videojuego, existen varias disciplinas tanto en 2D como en 3D.
+    Audio. Efectos de sonido, música de fondo, diálogos. Muy importante para crear ambiente.
+    Distribución y marketing. El arte de publicar y promocionar un videojuego, responsable del éxito o no de muchos productos dependiendo de las estrategias que sigan.
+
+Los grandes estudios tienes varias decenas de programadores, especializados en diferentes áreas. En programación de videojuego los principales equipos y/o disciplinas que puedes encontrar son
+los siguientes.
+
+    - Programación del motor. Son los encargados de implementar la base sobre la que se sustenta el videojuego. Comunicación con el sistema operativo, gestión de memoria, gestión de cadenas,
+    gestión de recursos, etc. Son necesarios grandes conocimiento de la plataforma para la que se programa, algoritmia y complejidad, opimización y gestión a bajo nivel.
+    - Programación gráfica. Su misión es lidiar con las diferentes apis gráficas como DirectX y OpenGL. Conocimienos de dichas apis, y matemáticas sobre todo álgebra y geometría.
+    - Programación de física. Se encarga de emular los comportamientos físicos del videojuego. Conocimientos de matemática vectorial y física dinámica y mecánica.
+    - Programación de inteligencia artificial. Es la encargada de hacer nuestros enemigos (o nuestros aliados) inteligentes. Conocimientos de lenguajes de script, matemáticas y algoritmos de
+    IA como pathfinding, máquinas de estados finitos o redes neuronales.
+    - Programación de red. Se encarga de la parte multijugador, servidores y todo lo que sea conectar una máquina con otra.
+    - Programaición de Gameplay. El equipo que se encarga de programar la lógica del juego, sus reglas. Conocimientos de lenguajes de script y uso de las partes desarrolladas por los otros equipos.
+
+Estas son las principales áreas en las que se dividen los grandes estudios pudiendo variar en muchos de ellos, pero estas son las principales disciplinas de la programación de videojuegos.
+Vale, lo tengo claro, ¿Por cual empiezo? Por todas y por ninguna.
+
+Cuando uno empieza ninguna de las áreas tiene un alto grado de complejidad y el programador indie debe aprender a lidiar con todas las áreas, las especializaciones es bueno tenerlas en cuenta
+de cara a un futuro, pero para empezar te tocará aprender un poco de todo.
+
+Conocimientos básicos necesarios para programar videojuegos
+
+    - Conocimintos de matemáticas. En principio no son muchos y dependerán básicamente del tipo de juego, pero suelen ser esenciales conocimientos básicos de trigonometría y geometría.
+    - Conocimintos de física. Como las matemáticas depende del tipo de juego, para juegos de plataforma con conocimientos básicos de cinemática es suficiente.
+    - Conocimintos de programación. Se debe saber programar y conocer bien un lenguaje de programación el lenguaje elegido es lo de menos siempre que sea popular y con una amplia comunidad y
+    colección de bibliotecas.
+
+Si se poseen estos conocimientos lo siguiente es buscar una biblioteca para el desarrollo de videojuegos de tu lenguaje. Aquí van algunas de las para los lenguajes más populares.
+
+    C: SDL
+    C++: SFML
+    C#: XNA / MonoGame
+    Python: PyGame
+    Java: libgdx, spiller
+    Ruby: Gosu
+    Flash: Flixel
+    Lua: Love2D
+
+El lenguaje es lo de menos en todos existen buenas bibliotecas 2D para empezar a desarrollar videojuegos. Lo importante es aprender las técnicas de la programación en tiempo real y eso es
+aplicable a cualquier lenguaje.
+
+
 
  */
 
